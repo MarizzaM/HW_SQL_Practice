@@ -119,7 +119,7 @@ GO
 /*--1. find the most expensive product*/
 
 SELECT TOP 1*
-FROM [OrderDB].[dbo].[Product]
+FROM Product
 ORDER BY PRICE DESC
 
 /*-- 2. find how many quantity have been purchased for the most price product *etgar*/
@@ -127,10 +127,37 @@ ORDER BY PRICE DESC
 
 /*-- 3. find customers which bought products (join)*/
 
+SELECT Customer.NAME
+FROM Orders
+INNER JOIN Customer ON Orders.CUSTOMER_ID=Customer.ID;
+
 /*-- 4. find how many customers leave in each country (name)*/
+
+SELECT Country.NAME, COUNT(Customer.ID)  AS CountOfCustInCountry
+from Customer
+INNER JOIN Country ON Customer.COUNTRY_ID = Country.ID
+GROUP BY Country.NAME
 
 /*-- 5. find how many orders per country*/
 
+SELECT Country.NAME, COUNT(Orders.ID)  AS CountOfOrdersInCountry
+from Customer
+INNER JOIN Country ON Customer.COUNTRY_ID = Country.ID
+INNER JOIN Orders ON Orders.CUSTOMER_ID=Customer.ID
+GROUP BY Country.NAME
+
 /*-- 6. find how many quantity per country*/
 
+SELECT Country.NAME, sum(Orders.QUANTITY)  AS QUANTITYInCountry
+from Customer
+INNER JOIN Country ON Customer.COUNTRY_ID = Country.ID
+INNER JOIN Orders ON Orders.CUSTOMER_ID=Customer.ID
+GROUP BY Country.NAME
+
 /*-- 7. sum of total amount of all orders (price X quantity) *etgar*/
+
+SELECT sum(Orders.QUANTITY * Product.PRICE)
+from Customer
+INNER JOIN Country ON Customer.COUNTRY_ID = Country.ID
+INNER JOIN Orders ON Orders.CUSTOMER_ID=Customer.ID
+INNER JOIN Product ON Orders.PRODUCT_ID=Product.ID
