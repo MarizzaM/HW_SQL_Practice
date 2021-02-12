@@ -116,8 +116,21 @@ GO
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_ORDERS_PRODUCT]
 GO
 
-/*1. find the most expensive product*/
+/*--1. find the most expensive product*/
 
 SELECT TOP 1*
 FROM [OrderDB].[dbo].[Product]
 ORDER BY PRICE DESC
+
+/*-- 2. find how many quantity have been purchased for the most price product *etgar*/
+
+
+/*-- 3. find customers which bought products (join)*/
+
+/*-- 4. find how many customers leave in each country (name)*/
+
+/*-- 5. find how many orders per country*/
+
+/*-- 6. find how many quantity per country*/
+
+/*-- 7. sum of total amount of all orders (price X quantity) *etgar*/
